@@ -1,21 +1,22 @@
 -- === FULLSCREEN BLACK UI + KEY SYSTEM + RAINBOW BAR ===
+-- Dieses Script ist nur für Roblox Studio gedacht.
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local PlayerGui = player:WaitForChild("PlayerGui")
 
--- Main ScreenGui
+-- ScreenGui
 local gui = Instance.new("ScreenGui")
 gui.Parent = PlayerGui
 gui.ResetOnSpawn = false
 
--- Full black background
+-- Schwarzer Fullscreen
 local black = Instance.new("Frame")
 black.Size = UDim2.new(1,0,1,0)
 black.BackgroundColor3 = Color3.new(0,0,0)
 black.Parent = gui
 
--- Key input box
+-- Key-Eingabe Feld
 local box = Instance.new("TextBox")
 box.Size = UDim2.new(0,300,0,50)
 box.Position = UDim2.new(0.5,-150,0.55,-25)
@@ -25,16 +26,17 @@ box.TextScaled = true
 box.PlaceholderText = "Enter Key..."
 box.Parent = gui
 
--- Rainbow bar (default hidden)
+-- Regenbogen-Balken (über dem discord.gg/joiner Text)
 local bar = Instance.new("Frame")
-bar.Size = UDim2.new(0.6,0,0,35)
-bar.Position = UDim2.new(0.5,-(0.6*500)/2,0.28,0) -- placed over the “discord.gg/…” spot
+bar.Size = UDim2.new(0.55,0,0,40)
+bar.Position = UDim2.new(0.5,-(0.55 * 500) / 2,0.205,0)
+-- 0.205 deckt den Bereich aus deinem Screenshot ab!
 bar.BackgroundColor3 = Color3.fromRGB(255,0,0)
 bar.BorderSizePixel = 0
 bar.Visible = false
 bar.Parent = gui
 
--- Text inside rainbow bar
+-- Text im Balken
 local label = Instance.new("TextLabel")
 label.Size = UDim2.new(1,0,1,0)
 label.BackgroundTransparency = 1
@@ -44,7 +46,7 @@ label.TextScaled = true
 label.Font = Enum.Font.GothamBold
 label.Parent = bar
 
--- RAINBOW ANIMATION
+-- Regenbogen Animation
 task.spawn(function()
 	while true do
 		for i = 0,1,0.01 do
@@ -54,7 +56,7 @@ task.spawn(function()
 	end
 end)
 
--- Key check
+-- Key Check
 box.FocusLost:Connect(function()
 	if box.Text == "Gicahub" then
 		black:Destroy()
