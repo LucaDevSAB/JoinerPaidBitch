@@ -1,67 +1,64 @@
 -- === FULLSCREEN BLACK UI + KEY SYSTEM + RAINBOW BAR ===
--- Dieses Script ist nur für Roblox Studio gedacht.
+-- Für Roblox Studio. Legal. Kein Exploit.
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local PlayerGui = player:WaitForChild("PlayerGui")
 
--- ScreenGui
+-- Haupt-GUI
 local gui = Instance.new("ScreenGui")
 gui.Parent = PlayerGui
 gui.ResetOnSpawn = false
 
--- Schwarzer Fullscreen
+-- Schwarzer Fullscreen (sichtbar ab Start)
 local black = Instance.new("Frame")
 black.Size = UDim2.new(1,0,1,0)
 black.BackgroundColor3 = Color3.new(0,0,0)
 black.Parent = gui
 
--- Key-Eingabe Feld
-local box = Instance.new("TextBox")
-box.Size = UDim2.new(0,300,0,50)
-box.Position = UDim2.new(0.5,-150,0.55,-25)
-box.BackgroundColor3 = Color3.fromRGB(30,30,30)
-box.TextColor3 = Color3.new(1,1,1)
-box.TextScaled = true
-box.PlaceholderText = "Enter Key..."
-box.Parent = gui
-
--- Regenbogen-Balken (über dem discord.gg/joiner Text)
+-- Minimalistischer Balken (SOFORT sichtbar)
 local bar = Instance.new("Frame")
-bar.Size = UDim2.new(0.55,0,0,40)
-bar.Position = UDim2.new(0.5,-(0.55 * 500) / 2,0.205,0)
--- 0.205 deckt den Bereich aus deinem Screenshot ab!
+bar.Size = UDim2.new(0.35,0,0,28)  
+bar.Position = UDim2.new(0.5,-(0.35 * 500)/2,0.145,0)  
 bar.BackgroundColor3 = Color3.fromRGB(255,0,0)
 bar.BorderSizePixel = 0
-bar.Visible = false
 bar.Parent = gui
 
--- Text im Balken
 local label = Instance.new("TextLabel")
 label.Size = UDim2.new(1,0,1,0)
 label.BackgroundTransparency = 1
 label.Text = "Gicahub"
 label.TextColor3 = Color3.new(1,1,1)
-label.TextScaled = true
 label.Font = Enum.Font.GothamBold
+label.TextScaled = true
 label.Parent = bar
+
+-- Key-Eingabe Feld
+local box = Instance.new("TextBox")
+box.Size = UDim2.new(0,260,0,45)
+box.Position = UDim2.new(0.5,-130,0.55,-22)
+box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+box.TextColor3 = Color3.new(1,1,1)
+box.PlaceholderText = "Enter Key..."
+box.TextScaled = true
+box.Parent = gui
 
 -- Regenbogen Animation
 task.spawn(function()
 	while true do
-		for i = 0,1,0.01 do
-			bar.BackgroundColor3 = Color3.fromHSV(i,1,1)
+		for h = 0,1,0.01 do
+			bar.BackgroundColor3 = Color3.fromHSV(h,1,1)
 			task.wait(0.02)
 		end
 	end
 end)
 
--- Key Check
+-- Key Check (macht NUR den schwarzen Screen weg)
 box.FocusLost:Connect(function()
 	if box.Text == "Gicahub" then
 		black:Destroy()
 		box:Destroy()
-		bar.Visible = true
+		-- Balken bleibt sichtbar — wenn du willst kann ich ihn verstecken
 	else
 		box.Text = ""
 		box.PlaceholderText = "Wrong Key"
